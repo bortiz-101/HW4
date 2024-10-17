@@ -1,5 +1,5 @@
 /*
- * *** YOUR NAME GOES HERE / YOUR SECTION NUMBER ***
+ * *** Brian Ortiz/001 ***
  *
  * This HashingProblems object contains three methods / problems that you must
  * complete utilize the HashMap object within the Java's Collection Framework Library.
@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.function.BiConsumer;
 
 class HashingProblems {
 
@@ -41,9 +42,25 @@ class HashingProblems {
          * returning 0.0/0.0 IS correct (which would return a non-number).
          */
 
-         return 0.0 / 0.0;
-  }
+        HashSet<Integer> Set = new HashSet<>();
 
+        for (int key : array) {
+            Set.add(key);
+        }
+        int sum = 0;
+        int count = 0;
+
+        for (Integer key : map.keySet()) {
+            if (Set.contains(key)) {
+                sum += map.get(key);
+                count++;
+            }
+        }
+        if (count == 0) {
+            return 0.0;
+        }
+        return (double) sum / count;
+    }
 
     /*
      * Method odd()
@@ -53,16 +70,13 @@ class HashingProblems {
      */
 
   public ArrayList<String> odd(HashMap<Integer, String> map) {
-    
+
       ArrayList<String> result = new ArrayList<>();
-
-      /*
-       * ADD YOUR CODE HERE
-       *
-       * Hint: Consider iterating over the HashMap using the keySet method.
-       */
-
-
+      for (Integer key : map.keySet()) {
+          if (key % 2 != 0) {
+              result.add(map.get(key));
+          }
+      }
       return result;
   }
 
@@ -105,12 +119,21 @@ class HashingProblems {
    */
 
   public int twoSums(int[] numbers, int k) {
-
-      /*
-       * ADD YOUR CODE HERE
-       */
-
-      return -1;
+      HashSet<Integer> Set = new HashSet<>();
+      int count = 0;
+      for (int number : numbers) {
+          Set.add(number);
+      }
+      for(int number : numbers) {
+          if(Set.contains(number + k)) {
+              count++;
+          }
+          if(Set.contains(number - k)) {
+              count++;
+          }
+          Set.remove(number);
+      }
+      return count;
   }
 
 } /* end class HashingProblems */
